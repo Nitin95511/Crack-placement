@@ -1,0 +1,48 @@
+class Solution {
+    public void MergerSort(int[] arr , int si , int ei){
+        if(si>=ei){
+            return;
+        }
+        int mid = si + (ei - si)/2;
+
+        MergerSort(arr , si , mid);
+        MergerSort(arr , mid + 1 , ei);
+        
+        Merge(arr , si , ei , mid);
+    }
+     public void Merge(int arr[] , int si , int ei , int mid){
+        int temp[] = new int[ei-si+1];
+        int i = si;
+        int j = mid+1;
+        int k = 0;
+        while(i <= mid && j <= ei){
+              if(arr[i] < arr[j]){
+                temp[k] = arr[i];
+                i++;
+                k++;
+              }
+              else{
+                temp[k] = arr[j];
+                j++;
+                k++;
+              }
+              
+        }
+        while(i <= mid){
+            temp[k++] = arr[i++];
+        }
+        while(j <= ei){
+            temp[k++] = arr[j++];
+        }
+        for(int t1 =0 ,  t2 = si ; t1 < temp.length ; t1++ , t2++){
+            arr[t2] = temp[t1];
+        }
+     }
+    public void sortColors(int[] nums) {
+        MergerSort(nums , 0 , nums.length-1);
+
+        for(int num : nums){
+            System.out.println(num);
+        }
+    }
+}
