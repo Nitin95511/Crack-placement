@@ -1,0 +1,46 @@
+class Solution {
+    
+    public int test(int[] arr, int si , int ei , int tar){
+        if(si>ei){
+            return -1;
+        }
+        int mid = (si+ei)/2;
+        
+        if(arr[mid]==tar){
+            return mid;
+        }
+
+         // Skip duplicates
+        while (si < mid && arr[si] == arr[mid]) {
+            si++;
+        }
+        while (ei > mid && arr[ei] == arr[mid]) {
+            ei--;
+        }
+        //left line
+        if(arr[si] <= arr[mid]){
+                 if(arr[si] <= tar && arr[mid] > tar ){
+                   return test(arr , si , mid-1 , tar);
+                 }
+               
+                 else{
+                   return test(arr , mid+1 , ei , tar);
+                 }
+        }
+        //right line
+        else{
+            if(arr[ei] >= tar && arr[mid] < tar){
+               return test(arr , mid+1 , ei , tar);
+            }
+            else{
+               return test(arr , si , mid-1 , tar);
+            }
+        }
+       
+    }   
+    public int search(int[] nums, int target) {
+        
+
+        return test( nums, 0 , nums.length-1 ,  target);
+    }
+}
