@@ -1,0 +1,74 @@
+public class Solution {
+
+    
+    public List<List<String>> generateBoard(int n) {
+        List<List<String>> board = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            List<String> row = new ArrayList<>();
+            for (int j = 0; j < n; j++) {
+                row.add(".");
+            }
+            board.add(row);
+        }
+        return board;
+    }
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> results = new ArrayList<>();
+        List<List<String>> board = generateBoard(n);
+        solve(board, 0, results);
+        return results;
+    }
+
+   
+    public void solve(List<List<String>> board, int row, List<List<String>> results) {
+        if (row == board.size()) {
+            results.add(copyBoard(board));
+            return;
+        }
+
+        for (int col = 0; col < board.size(); col++) {
+            if (isSafe(board, row, col)) {
+                board.get(row).set(col, "Q");
+                solve(board, row + 1, results);
+                board.get(row).set(col, ".");
+            }
+        }
+    }
+
+
+    public boolean isSafe(List<List<String>> board, int row, int col) {
+        // Check vertical up
+        for (int i = row - 1; i >= 0; i--) {
+            if (board.get(i).get(col).equals("Q")) {
+                return false;
+            }
+        }
+
+        // Check diagonal up-right
+        for (int i = row - 1, j = col + 1; i >= 0 && j < board.size(); i--, j++) {
+            if (board.get(i).get(j).equals("Q")) {
+                return false;
+            }
+        }
+
+        // Check diagonal up-left
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (board.get(i).get(j).equals("Q")) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+   
+    public List<String> copyBoard(List<List<String>> board) {
+        List<String> newBoard = new ArrayList<>();
+        for (List<String> row : board) {
+            newBoard.add(String.join("", row));
+        }
+        return newBoard;
+    }
+
+  
+}
