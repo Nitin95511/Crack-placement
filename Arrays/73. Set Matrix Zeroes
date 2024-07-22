@@ -1,0 +1,56 @@
+class Solution {
+    public  void setter(int[][] mattrix , int row , int col) {
+		 
+		//vertical up
+		for (int i = row-1; i >=0; i--) {
+			if(mattrix[i][col]!=0) {
+			mattrix[i][col]= -010;
+			}
+		}
+		//vertical down
+		for (int j = row+1; j < mattrix.length; j++) {
+			if(mattrix[j][col]!=0) {
+			mattrix[j][col]= -010;
+		}
+		}
+        //horizontal right
+		
+		for(int k = col+1; k < mattrix[0].length; k++) {
+			if(mattrix[row][k]!=0) {
+			mattrix[row][k] = -010;
+		}
+		}
+		//horizontal left
+		
+		for(int l = col-1; l >=0; l--) {
+			if(mattrix[row][l]!=0) {
+			mattrix[row][l] = -010;
+	     	}
+		}
+	
+}
+	 public  void setZeroes(int[][] matrix) {
+	        
+	        for(int row = 0 ; row < matrix.length ; row++){
+	             for(int col = 0 ; col < matrix[0].length ; col++){
+	            	 if(matrix[row][col]==0) {
+	            		 setter(matrix, row, col);
+	            		 
+	            	 }
+	                 
+	             }
+	            
+	        
+	        }
+
+             for(int row = 0 ; row < matrix.length ; row++){
+	             for(int col = 0 ; col < matrix[0].length ; col++){
+	            	 if(matrix[row][col]==-010) {
+	            		 matrix[row][col]=0;
+	            		 
+	            	 }   
+	             }
+	        }      
+	    }
+
+}
